@@ -1,4 +1,5 @@
-"""Tried to keep true to the PEP-8 good code practices.
+"""
+Tried to keep true to the PEP-8 good code practices.
 The comments are pretty verbose, but I try to explain my reasoning fully in
 them. All questions are welcome either through Facebook event page, on Facebook
 direct message or at jastrzebskib (at) gmail (dot) com.
@@ -18,11 +19,16 @@ to actually learn something by doing it:
   the high score that you have earned at the end of the game
 """
 
-#Necessary imports.
+# Necessary imports; using from module import * imports all of the methods of 
+# that module in such a way, that we don't have to call the functions in the 
+# format module.method - just method. It is generally a bad practice (since you
+# always end up importing a lot of unnecessary things); in PyGame usage of
+# "from pygame.locals import *" is very widespread, since the module contains
+# a vast amount of functionality.
 import pygame
 from pygame.locals import *
-from sys import *
-from random import *
+from sys import exit
+from random import randrange
 
 #Colour constants (constants are by convention written in ALL CAPS; technically
 #they can be changed, it just signifies that they shouldn't). They could also
