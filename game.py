@@ -7,16 +7,21 @@ direct message or at jastrzebskib (at) gmail (dot) com.
 Things that could be modified if you want to play with the code a bit and want
 to actually learn something by doing it:
 * instead of dying by running into the wall, wrap the snake around
-* make the game go faster if you get to a certain score
+* make the game go faster if you get to a certain score; change the background
+  color at the same time
 * make it so that the fruit cannot be spawned "in" snake
-* add different kinds of fruit (more points, less points, are only temporary,
-  make game go slower)
+* if you press all the arrow keys at the same time, you die; if you don't like
+  this fact, find a way to get it fixed (I kinda like it this way, so it stays)
+* add different kinds of fruit (e.g.: more points, less points, are only 
+  temporary, make game go slower, etc.)
 * make the game ask you if you want to play another round after dying
 * save the scores to a .txt file in the same folder
 * corollary to the previous one: at the end of the game display top10/top20/we
   scores
 * corollary to both previous points: add the functionality to add your name to
   the high score that you have earned at the end of the game
+  
+Blazej Jastrzebski, 08.04.2015
 """
 
 # Necessary imports; using from module import * imports all of the methods of 
