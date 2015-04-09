@@ -195,38 +195,51 @@ class Game(object):
         score_text = self.font.render(score_string, True, SUBTITLE_YELLOW)
         self.surface.blit(score_text, (5, 5))
 
+    # Is called in each "frame". We check if player exit the game and if any 
+    # keys were pressed.
+    def get_player_input(self):
+        for event in pygame.event.get():
+            if event.type == QUIT or (event.type == KEYDOWN and \
+                                    event.key == K_ESCAPE):
+                self.gamestate = 0
+                # Pressing an arrow key changes the direction we're going in...
+                # unless you wanted to revert in place - it doesn't allow that.
+            if event.type == KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    if not self.direction == "right":
+                        self.direction = "left"
+                if event.key == pygame.K_RIGHT:
+                    if not self.direction == "left":
+                        self.direction = "right"
+                if event.key == pygame.K_UP:
+                    if not self.direction == "down":
+                        self.direction = "up"
+                if event.key == pygame.K_DOWN:
+                    if not self.direction == "up":
+                        self.direction = "down"
+
     # The main event loop - where the magic happens, indents get messed up and
     # you cuss a lot if you mess something up and it was not kept tidy.
     def loop(self):
         while self.gamestate==1:
-            for event in pygame.event.get():
-                if event.type==QUIT or (event.type==KEYDOWN and\
-                                        event.key==K_ESCAPE):
-                    self.gamestate=0
-                # Pressing an arrow key changes the direction we're going in...
-                # unless you wanted to revert in place - it doesn't allow that.
-                if event.type == KEYDOWN:
-                    if event.key == pygame.K_LEFT:
-                        if not self.direction == "right":
-                            self.direction = "left"
-                    if event.key == pygame.K_RIGHT:
-                        if not self.direction == "left":
-                            self.direction = "right"
-                    if event.key == pygame.K_UP:
-                        if not self.direction == "down":
-                            self.direction = "up"
-                    if event.key == pygame.K_DOWN:
-                        if not self.direction == "up":
-                            self.direction = "down"
-
+            # Check if player closes the game or pressed arrow keys.
+            self.get_player_input()
+            # Fill the screen with black colour (if not for this function, it
+            # would seem as if the snake got longer by 1 square in each "frame"
+            # because the "tail" part was already drawn and flipped to the
+            # screen.
             self.surface.fill(BLACK)
             self.move_snake()
+            # We move first, draw later; if the order is reversed, snake gets
+            # drawn first and then moves, which makes it a bit harder to e.g.
+            # turn next to the walls.
             self.draw_score()
             self.draw_fruit()
             self.draw_snake()
             self.check_dead()
+            # Move all the things that we have drawn to the screen.
             pygame.display.flip()
-            # Can be made slower/faster by increasing/decreasing the delay. I'm
+            # Can be made slower/faster by increasing/decreasing the wait. I'm
             # old, so I went with a pretty slow game, 40 gives 20-25 FPS.
             pygame.time.wait(100)
 
