@@ -194,6 +194,17 @@ class Game(object):
         score_string = "Score: " + str(self.score)
         score_text = self.font.render(score_string, True, SUBTITLE_YELLOW)
         self.surface.blit(score_text, (5, 5))
+        
+    # Currently there is no way to win, so...
+    def game_over(self):
+        # "Clear" the screen.
+        self.surface.fill(BLACK)
+        lose_text = self.largefont.render("u ded, h4h4", True, RED)
+        # Tell the rendered text where it will go on the screen.
+        self.surface.blit(lose_text, (240, 200))
+        # Make all the changes above actually display on the screen.
+        pygame.display.update()
+        pygame.time.wait(2000)
 
     # Is called in each "frame". We check if player exit the game and if any 
     # keys were pressed.
@@ -238,17 +249,13 @@ class Game(object):
             self.draw_snake()
             self.check_dead()
             # Move all the things that we have drawn to the screen.
-            pygame.display.flip()
+            pygame.display.update()
             # Can be made slower/faster by increasing/decreasing the wait. I'm
             # old, so I went with a pretty slow game, 40 gives 20-25 FPS.
             pygame.time.wait(100)
 
         # After the player's inevitable demise.
-        self.surface.fill(BLACK)
-        lose_text = self.largefont.render("u ded, h4h4", True, RED)
-        self.surface.blit(lose_text, (240, 200))
-        pygame.display.update()
-        pygame.time.wait(2000)
+        self.game_over()
 
 # Let's go!
 if __name__ == '__main__':
